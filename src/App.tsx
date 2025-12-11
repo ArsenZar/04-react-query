@@ -17,7 +17,9 @@ export default function App() {
 
   return (
     <>
+      <button disabled={ count === 1 } onClick={() => setCount(count - 1)}>Get prev character</button>
       <button onClick={() => setCount(count + 1)}>Get next character</button>
+     
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {error?.message}</p>}
       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
