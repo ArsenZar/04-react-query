@@ -1,11 +1,11 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 
 interface OrderFormValues {
-  restrictions: string[];
+  message: string;
 }
 
 const initialValues: OrderFormValues = {
-  restrictions: [],
+  message: "",
 };
 
 export default function OrderForm() {
@@ -20,18 +20,8 @@ export default function OrderForm() {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form>
-        <label>
-          <Field type="checkbox" name="restrictions" value="vegan" />
-          Vegan
-        </label>
-        <label>
-          <Field type="checkbox" name="restrictions" value="gluten-free" />
-          Gluten-free
-        </label>
-        <label>
-          <Field type="checkbox" name="restrictions" value="nut-free" />
-          Nut-free
-        </label>
+        <label htmlFor="message">Comment or instructions</label>
+        <Field as="textarea" name="message" id="message" rows={5} />
 
         <button type="submit">Place order</button>
       </Form>
