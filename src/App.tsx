@@ -1,11 +1,11 @@
 import { Formik, Form, Field } from "formik";
 
 interface OrderFormValues {
-  delivery: string;
+  restrictions: string[];
 }
 
 const initialValues: OrderFormValues = {
-  delivery: "pickup",
+  restrictions: [],
 };
 
 export default function OrderForm() {
@@ -21,16 +21,16 @@ export default function OrderForm() {
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form>
         <label>
-          <Field type="radio" name="delivery" value="pickup" />
-          Pickup
+          <Field type="checkbox" name="restrictions" value="vegan" />
+          Vegan
         </label>
         <label>
-          <Field type="radio" name="delivery" value="courier" />
-          Courier
+          <Field type="checkbox" name="restrictions" value="gluten-free" />
+          Gluten-free
         </label>
         <label>
-          <Field type="radio" name="delivery" value="drone" />
-          Drone delivery
+          <Field type="checkbox" name="restrictions" value="nut-free" />
+          Nut-free
         </label>
 
         <button type="submit">Place order</button>
