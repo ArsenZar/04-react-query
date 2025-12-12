@@ -1,21 +1,14 @@
-import { useId } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
+import { Formik, Form, Field } from "formik";
 
 interface OrderFormValues {
-  username: string;
-  email: string;
-  deliveryTime: string;
+  delivery: string;
 }
 
 const initialValues: OrderFormValues = {
-  username: "",
-  email: "",
-  deliveryTime: "",
+  delivery: "pickup",
 };
 
 export default function OrderForm() {
-  const fieldId = useId();
-
   const handleSubmit = (
     values: OrderFormValues,
     actions: FormikHelpers<OrderFormValues>
@@ -27,16 +20,18 @@ export default function OrderForm() {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form>
-        <Field type="text" name="username" />
-        <Field type="email" name="email" />
-
-        <label htmlFor={`${fieldId}-deliveryTime`}>Preferred delivery time</label>
-        <Field as="select" name="deliveryTime" id={`${fieldId}-deliveryTime`}>
-          <option value="">-- Choose delivery time --</option>
-          <option value="morning">Morning (8:00–12:00)</option>
-          <option value="afternoon">Afternoon (12:00–16:00)</option>
-          <option value="evening">Evening (16:00–20:00)</option>
-        </Field>
+        <label>
+          <Field type="radio" name="delivery" value="pickup" />
+          Pickup
+        </label>
+        <label>
+          <Field type="radio" name="delivery" value="courier" />
+          Courier
+        </label>
+        <label>
+          <Field type="radio" name="delivery" value="drone" />
+          Drone delivery
+        </label>
 
         <button type="submit">Place order</button>
       </Form>
