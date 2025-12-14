@@ -1,8 +1,8 @@
 import SearchBar from "../SearchBar/SearchBar";
 import css from "./App.module.css";
 import fetchMovies from "../../services/movieService";
-import { useState } from "react";
-import type { Movie, FetchMoviesResponse } from "../../types/movie";
+import { useState, useEffect } from "react";
+import type { Movie } from "../../types/movie";
 import toast, { Toaster } from 'react-hot-toast';
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from "../Loader/Loader";
@@ -43,14 +43,21 @@ export default function App() {
     setPage(1);
   }
 
-  const { data, isLoading, isError } = useQuery<FetchMoviesResponse>({
+  const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: ['movies', query, page],  // змінюємо ключ запиту залежно від count
     queryFn: () => fetchMovies(query, page),
-    enabled: query.trim().length > 0
+    enabled: query.trim().length > 0,
+    placeholderData: (prev) => prev
   });
 
   const movies = data?.results ?? [];
   const totalPages = data?.total_pages ?? 0;
+
+  useEffect(() => {
+    if (isSuccess && movies.length === 0) {
+      toast("No movies found");
+    }
+  }, [isSuccess, movies.length]);
   
   return (
     <div className={css.app}>
