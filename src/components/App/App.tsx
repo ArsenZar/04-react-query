@@ -64,7 +64,7 @@ export default function App() {
       <Toaster />
 
       <SearchBar onSubmit={res} />
-      {isLoading && (<Loader />)}
+      {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {movies.length > 0 && totalPages > 1 && <ReactPaginate
         pageCount={totalPages}
